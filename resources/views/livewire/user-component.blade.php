@@ -3,15 +3,6 @@
     @include('admin.users.partials.edit-user-modal')
     <div class="card">
 
-        {{-- @if(session()->has('user-added'))
-        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
-            {{session()->has('user-added')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endif --}}
-
         <div class="card-body table-responsive">
             <table class="table table-striped" width="100%">
                 <div class="container d-flex justify-content-between">
@@ -25,7 +16,7 @@
                         registros
                     </div>
                     <div class="d-inline-flex justify-content-center align-items-center">
-                        <input class="form-control mx-sm-2" type="search" placeholder="Buscar..." aria-label="Search">
+                        <input class="form-control mx-sm-2" type="search" placeholder="Buscar..." wire:model='search_term' aria-label="Search">
                     </div>
                 </div>
                 <thead>
@@ -63,7 +54,7 @@
                         <td colspan="4">
                             <div class="container d-flex justify-content-between align-items-center">
                                 <span>{{$users->total()}} registros</span>
-                                {{$users->links()}}
+                                {{$users->onEachSide(1)->links()}}
                             </div>
                         </td>
                     </tr>

@@ -13,7 +13,7 @@ class UserComponent extends Component
     use WithPagination;
 
     // Component props
-    public $user_id, $name, $email, $password, $password_confirmation, $current_password;
+    public $user_id, $name, $email, $password, $password_confirmation, $current_password, $search_term = '';
 
     // Paginate props
     public $perPage = 10;
@@ -26,7 +26,9 @@ class UserComponent extends Component
     {
         $this->dispatchBrowserEvent('jquery');
         return view('livewire.user-component', [
-            'users' => User::where('id', '<>', Auth::user()->id)->paginate($this->perPage)
+            'users' => $this->search_term != '' ? User::where('id', '<>', Auth::user()->id)->search($this->search_term)
+                ->paginate($this->perPage)
+                :  User::where('id', '<>', Auth::user()->id)->paginate($this->perPage)
         ]);
     }
 
@@ -38,10 +40,11 @@ class UserComponent extends Component
         $this->emit('showEditForm');
     }
 
-    public function update() {        
+    public function update()
+    {
         $this->validate([
             'name' => 'required|min:6|string',
-            'email' => ['required','email','unique:users,email,'.$this->user_id,'max:255'],
+            'email' => ['required', 'email', 'unique:users,email,' . $this->user_id, 'max:255'],
             'password' => isset($this->password) ? 'min:8|max:16|same:password_confirmation' : '',
             'password_confirmation' => isset($this->password) ? 'min:8' : ''
         ]);
@@ -55,15 +58,16 @@ class UserComponent extends Component
         $this->emit('userUpdated');
         $this->dispatchBrowserEvent('swal', [
             'title' => 'El usuario se actualizó de forma correcta.',
-            'position'=>'top-end',
-            'icon'=>'success',
-            'timer'=>1500,
+            'position' => 'top-end',
+            'icon' => 'success',
+            'timer' => 1500,
             'showConfirmButton' => false,
-            'toast'=>true,
+            'toast' => true,
         ]);
     }
 
-    public function store(){
+    public function store()
+    {
         $validatedData = $this->validate([
             'name' => 'required|min:6',
             'email' => 'required|email|unique:users|max:255',
@@ -76,31 +80,34 @@ class UserComponent extends Component
         $this->resetFields();
         $this->dispatchBrowserEvent('swal', [
             'title' => 'El usuario se agregó de forma correcta.',
-            'position'=>'top-end',
-            'icon'=>'success',
-            'timer'=>1500,
+            'position' => 'top-end',
+            'icon' => 'success',
+            'timer' => 1500,
             'showConfirmButton' => false,
-            'toast'=>true,
+            'toast' => true,
         ]);
     }
 
-    public function cancel(){
+    public function cancel()
+    {
         $this->resetFields();
     }
 
-    public function destroy(User $user) {
+    public function destroy(User $user)
+    {
         $user->delete();
         $this->dispatchBrowserEvent('swal', [
             'title' => 'El usuario se eliminó de forma correcta.',
-            'position'=>'top-end',
-            'icon'=>'success',
-            'timer'=>1500,
+            'position' => 'top-end',
+            'icon' => 'success',
+            'timer' => 1500,
             'showConfirmButton' => false,
-            'toast'=>true,
+            'toast' => true,
         ]);
     }
 
-    public function resetFields (){
+    public function resetFields()
+    {
         $this->user_id = '';
         $this->name = '';
         $this->email = '';
