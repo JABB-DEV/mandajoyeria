@@ -16,7 +16,7 @@
                     </div>
                     {{-- EMAIL INFO --}}
                     <div class="form-group">
-                        <label>Nombre:</label> <span class="text-muted">{{$email}}</span>
+                        <label>Correo electrónico:</label> <span class="text-muted">{{$email}}</span>
                     </div>
                     {{-- CREATED AT INFO --}}
                     <div class="form-group">
