@@ -18,15 +18,19 @@
 
 @section('js')
 <script type="text/javascript">
-    window.livewire.on('userStore',()=>{
+    Livewire.on('userStore',()=>{
             $('#createUserModal').modal('hide');
-        })
-    window.livewire.on('showEditForm',()=>{
+        });
+    Livewire.on('showEditForm',()=>{
             $('#editUserModal').modal('show');
-        })
-    window.livewire.on('userUpdated',()=>{
+        });
+    Livewire.on('userUpdated',()=>{
             $('#editUserModal').modal('hide');
-        })
+        });
+    Livewire.on('showUserDetails',()=>{
+            $('#detailUserModal').modal('show');
+        });
+        
     document.querySelectorAll("#show_hide_password").forEach(element => {
         element.addEventListener('click', (event) => {
             event.preventDefault()

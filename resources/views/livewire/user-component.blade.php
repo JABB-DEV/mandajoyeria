@@ -1,6 +1,7 @@
 <div>
     @include('admin.users.partials.create-user-modal')
     @include('admin.users.partials.edit-user-modal')
+    @include('admin.users.partials.details-user')
     <div class="card">
 
         <div class="card-body table-responsive">
@@ -35,7 +36,7 @@
                         <td>{{$user->email}}</td>
                         <td class="text-center">
                             @if ($user->id !== Auth::user()->id)
-                            <a wire:click='edit({{$user}})' class="btn btn-link btn-sm text-secondary"
+                            <a wire:click='show({{$user}})' class="btn btn-link btn-sm text-secondary"
                                 title="Ver detalles"><i class="fas fa-address-card"></i></a>
                             <a wire:click='edit({{$user}})' class="btn btn-link btn-sm text-primary"
                                 title="Editar usuario"><i class="fas fa-edit"></i></a>

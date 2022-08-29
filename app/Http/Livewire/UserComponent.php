@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -13,7 +14,15 @@ class UserComponent extends Component
     use WithPagination;
 
     // Component props
-    public $user_id, $name, $email, $password, $password_confirmation, $current_password, $search_term = '';
+    public $user_id, 
+            $name, 
+            $email, 
+            $password, 
+            $password_confirmation, 
+            $current_password, 
+            $search_term = '',
+            $created_at,
+            $updated_at;
 
     // Paginate props
     public $perPage = 10;
@@ -30,6 +39,15 @@ class UserComponent extends Component
                 ->paginate($this->perPage)
                 :  User::where('id', '<>', Auth::user()->id)->paginate($this->perPage)
         ]);
+    }
+    
+    public function show (User $user) {
+        $this->user_id = $user->id;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->created_at = $user->created_at;
+        $this->updated_at = $user->updated_at;
+        $this->emit('showUserDetails');
     }
 
     public function edit(User $user)
@@ -52,8 +70,10 @@ class UserComponent extends Component
         $user->update([
             'name' => $this->name,
             'email' => $this->email,
-            'password' => isset($this->password) ? Hash::make($this->password) : $user->password
+            'password' => isset($this->password) ? Hash::make($this->password) : $user->password,
         ]);
+        $user->touch();
+        $user->updateTimestamps();
         $this->resetFields();
         $this->emit('userUpdated');
         $this->dispatchBrowserEvent('swal', [
