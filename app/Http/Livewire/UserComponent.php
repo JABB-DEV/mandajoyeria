@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -29,7 +28,7 @@ class UserComponent extends Component
     protected $paginationTheme = 'bootstrap';
 
     // Listeners
-    protected $listeners = ['destroy'];
+    protected $listeners = ['destroy', 'resetFields'];
 
     public function render()
     {

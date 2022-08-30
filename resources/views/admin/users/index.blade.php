@@ -30,6 +30,10 @@
     Livewire.on('showUserDetails',()=>{
             $('#detailUserModal').modal('show');
         });
+
+    $('#detailUserModal').on('hidden.bs.modal',  () => Livewire.emit('resetFields') )
+    $('#editUserModal').on('hidden.bs.modal',  () => Livewire.emit('resetFields') )
+    $('#createUserModal').on('hidden.bs.modal',  () => Livewire.emit('resetFields') )
         
     document.querySelectorAll("#show_hide_password").forEach(element => {
         element.addEventListener('click', (event) => {
