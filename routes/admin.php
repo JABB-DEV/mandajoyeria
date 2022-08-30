@@ -1,9 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
-Route::get('usuarios', function(){
+Route::get('usuarios', function () {
     return view('admin.users.index');
-})->middleware('auth');
+})  
+    ->name('admin.usuarios')
+    ->middleware('auth');
+
+Route::get('productos/categorias', function () {
+    return view('admin.product_category.index');
+})
+    ->name('admin.productos.categorias')
+    ->middleware('auth');

@@ -302,6 +302,23 @@ return [
             //     ],
             // ],
         ],
+        ['header' => 'Módulos'],
+        [
+            'text'        => 'Productos',
+            'icon'        => 'fas fa-boxes',
+            'submenu' => [
+                [
+                    'text' => 'Ver listado',
+                    'url' => 'admin',
+                    'icon' => 'fas fa-list'
+                ],
+                [
+                    'text' => 'Categorias',
+                    'url'  => 'admin/productos/categorias',
+                    'icon' => 'fas fa-project-diagram'
+                ],
+            ],
+        ],
     ],
 
     /*
